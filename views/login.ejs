@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login your account</title>
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+    <div class="main">
+
+        <div class="logo-container">
+            <img src="images/logo.png" alt="logo">
+        </div>
+        <div class="login-section">
+            <h1>Login</h1>
+            <form action="/login" method="post" autocomplete="off">
+                <input type="text" name="email" placeholder="Email ID"  required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+
+            <hr>
+
+            <h3>Don't have an account? <a class="register-link" href="/register">Register</a></h3>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <!-- <link rel="stylesheet" href="styles/section.css"> -->
+    <link rel="stylesheet" href="styles/news.css">
+</head>
+<body>
+    <div class="main">
+
+        <div class="navbar">
+            <div class="logo">
+                <div class="brand-name">
+                    NewsNexus
+                </div>
+                <span class="tagline">
+                    News that matters
+                </span>
+            </div>
+
+            <div class="menu">
+                <a href="/home" class="option"> &larr; Go back to home</a>
+                <a href="/logout" class="option">Logout</a>
+            </div>
+        </div>
+
+        <div class="news-container">
+
+            <% sectionData.forEach(article=>{ %>
+               
+                <a class="news-section" href="<%= article.url %>" target="_blank">
+                <!-- <img src="https://picsum.photos/300" alt="image"> -->
+                <img src="<%= article.urlToImage ? article.urlToImage : 'https://via.placeholder.com/300x200?text=No+Image' %>" alt="News image">
+                <p> <%= article.title %></p>
+                </a>
+                
+            <%  }) %>
+     
+     
+     
+            <!-- <a class="news-section" href="">
+                <img src="images/loginPage.png" alt="image">
+                <p>This is a trial news. This is a trial news. This is a trial news. This is a trial news. This is a trial news. This is a trial news</p>
+            </a> -->
+            
+        </div>
+
+    </div>
+
+
+
+</body>
+</html>

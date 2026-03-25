@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/home.css">
+</head>
+<body>
+    
+    <div class="main">
+        <h1 class="welcome-user">Welcome <%= user.username %></h1>
+        <h3 class="welcome-msg">What do you want to read today?</h3>
+
+        <div class="news-sections">
+            <a class="section" href="general">Top Headlines</a>
+            <a class="section" href="global">Global</a>
+            <a class="section" href="sports">Sports</a>
+            <a class="section" href="business">Business</a>
+            <a class="section" href="entertainment">Entertainment</a>
+            <a class="section" href="science">Science</a>
+            <a class="section" href="health">Health</a>
+            <a class="section" href="technology">Technology</a>
+        </div>
+
+    </div>
+
+    <script src="scripts/sections.js"></script>
+</body>
+</html>

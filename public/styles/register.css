@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.main{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(25,25,25);
+    background-image: url('../images/registerPage.jpg');
+    background-size: cover;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+}
+
+.main .logo-container{
+    width: 100%;
+    height: 100%;
+    /* background-color: white; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main .logo-container img{
+    width: 500px;
+    height: auto;
+}
+
+.main .register-section{
+    width: 70%;
+    height: 650px;
+    /* background-color: red; */
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    border: 4px solid white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 50px;
+}
+
+.register-section h1{
+    font-size: 40px;
+    color: aliceblue;
+    margin-bottom: 40px;
+}
+
+.register-section form{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.register-section form input{
+    width: 80%;
+    height: 50px;
+    border: 3px solid white;
+    background-color: transparent;
+    font-size: 15px;
+    padding: 0 20px;
+    border-radius: 50px;
+    color: aliceblue;
+    outline: none;
+    font-weight: 600;
+}
+
+.register-section form input::placeholder{
+    color: aliceblue;
+}
+
+.register-section form input[type=submit]{
+    background-color: aliceblue;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.register-section form input[type=submit]:hover{
+    background-color: black;
+    color: aliceblue;
+    border-color: black;
+}
+
+.register-section hr{
+    width: 80%;
+    background-color: aliceblue;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.register-section h3{
+
+    font-size: 20px;
+    color: aliceblue;
+}
+
+.login-link{
+    color: aliceblue;
+    font-weight: 600;
+}
