@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "1775463373243-3042",
+    "username": "localuser",
+    "age": "23",
+    "email": "local1044007404@mail.com",
+    "password": "$2b$10$uqGWn6lawWG7MWYjWM1FfOONiFqjU.a7aqmQy1/5EKbap2lWkHXti"
+  },
+  {
+    "_id": "1775463438690-6765",
+    "username": "DevanshX786",
+    "age": "21",
+    "email": "devanshgupta9725@gmail.com",
+    "password": "$2b$10$F5fF6tF664QwKcI2JDWG.OwF87C5VydyjaqQj5arJzP4LB3PmTAdm"
+  }
+]

@@ -20,11 +20,11 @@ app.listen(port, ()=>{
 })
 
 app.get("/", (req, res)=>{
-    res.render("login")
+    res.render("login", { error: null })
 })
 
 app.get("/login", (req, res)=>{
-    res.render("login")
+    res.render("login", { error: null })
 })
 
 app.get("/logout", (req, res)=>{
@@ -36,11 +36,19 @@ app.get("/register", (req, res)=>{
     res.render("register")
 })
 
-app.get("/home", isLoggedIn, async (req, res)=>{
-    let user = await userModel.findOne({email: req.user.email})
-    res.render("home", {user})
-    console.log(user);
+app.get('/favicon.ico', (req, res) => {
+    res.status(204).end();
+})
 
+app.get("/home", isLoggedIn, async (req, res)=>{
+    try {
+        let user = await userModel.findOne({email: req.user.email})
+        res.render("home", {user})
+        console.log(user);
+    } catch (error) {
+        console.error("Home route error:", error.message);
+        res.status(500).send("Database is unavailable. Start MongoDB and try again.");
+    }
 })
 
 // app.get("/home/section", isLoggedIn, (req, res)=>{
@@ -63,19 +71,23 @@ app.post("/register", (req, res)=>{
             if(err) res.render("register");
             
             else{
-
-                let createdUser = await userModel.create({
-                    username,
-                    age,
-                    email,
-                    password: hash,
-                });
-                console.log(createdUser); 
-    
-                let token = jwt.sign({email}, "secretKey");
-                res.cookie("token", token);
-    
-                res.redirect("/");
+                try {
+                    let createdUser = await userModel.create({
+                        username,
+                        age,
+                        email,
+                        password: hash,
+                    });
+                    console.log(createdUser); 
+        
+                    let token = jwt.sign({email}, "secretKey");
+                    res.cookie("token", token);
+        
+                    res.redirect("/");
+                } catch (error) {
+                    console.error("Register route error:", error.message);
+                    res.status(500).send("Database is unavailable. Start MongoDB and try again.");
+                }
             }
         })
     })
@@ -84,22 +96,34 @@ app.post("/register", (req, res)=>{
 
 
 app.post("/login", async (req, res)=>{
-    let {email, password} = req.body;
-    let user = await userModel.findOne({email});
+    try {
+        let {email, password} = req.body;
+        let user = await userModel.findOne({email});
 
-    if(!user) res.render("login");
+        if(!user) {
+            return res.render("login", { error: "User is not registered. Please register first." });
+        }
 
-    else{
-        bcrypt.compare(password, user.password, (err, result)=>{
-            if(result){
-                let token = jwt.sign({email}, "secretKey");
-                res.cookie("token", token);
-                res.redirect("home");
-            }
-            else res.redirect("/");
-        })
+        else{
+            bcrypt.compare(password, user.password, (err, result)=>{
+                if (err) {
+                    return res.render("login", { error: "Unable to verify password right now. Please try again." });
+                }
+
+                if(result){
+                    let token = jwt.sign({email}, "secretKey");
+                    res.cookie("token", token);
+                    res.redirect("/home");
+                }
+                else {
+                    return res.render("login", { error: "Email is correct, but the password is incorrect." });
+                }
+            })
+        }
+    } catch (error) {
+        console.error("Login route error:", error.message);
+        res.status(500).send("Database is unavailable. Start MongoDB and try again.");
     }
-    
 })
 
 app.get("/:section", isLoggedIn, async (req, res)=>{
@@ -141,11 +165,18 @@ app.get("/:section", isLoggedIn, async (req, res)=>{
 })
 
 function isLoggedIn(req, res, next){
+    const token = req.cookies && req.cookies.token;
 
-    if(req.cookies.token == "") res.redirect("/");
-    else{
-        let data = jwt.verify(req.cookies.token, "secretKey");
+    if (!token) {
+        return res.redirect("/");
+    }
+
+    try {
+        const data = jwt.verify(token, "secretKey");
         req.user = data;
-        next();
+        return next();
+    } catch (error) {
+        res.cookie("token", "");
+        return res.redirect("/");
     }
 }
